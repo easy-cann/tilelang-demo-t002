@@ -1,6 +1,7 @@
+SCRIPT_DIR=$(dirname $(readlink -f "${BASH_SOURCE[0]}"))
 export TL_ROOT=/home/developer/workspace/git/github/tile-ai/tilelang-ascend
 
-rm -rf ./test_flash_attention.so
+rm -rf ${SCRIPT_DIR}/test_flash_attention.so
 bisheng \
     --npu-arch=dav-2201 \
     -O2 -std=c++17 -xasc \
@@ -14,7 +15,7 @@ bisheng \
     -I${TL_ROOT}/3rdparty/catlass/include \
     -L${ASCEND_HOME_PATH}/lib64 \
     -lruntime -lascendcl -lm -ltiling_api -lplatform -lc_sec -ldl \
-    -fPIC --shared ./test_flash_attention.cpp -o ./test_flash_attention.so
+    -fPIC --shared ${SCRIPT_DIR}/test_flash_attention.cpp -o ${SCRIPT_DIR}/test_flash_attention.so
 
 echo "Compile Success."
-python ./test_flash_attention.py
+python ${SCRIPT_DIR}/test_flash_attention.py
