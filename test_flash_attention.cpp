@@ -96,7 +96,7 @@ extern "C" __global__ __aicore__ void main_kernel( GM_ADDR Q_handle,  GM_ADDR K_
       AscendC::PipeBarrier<PIPE_ALL>();
       AscendC::Muls(acc_s_ub[0], acc_s_ub[0], 4.419417e-02f, 2048);
       AscendC::PipeBarrier<PIPE_ALL>();
-      tl::ascend::reduce_max<float, 32, 64, AscendC::Pattern::Reduce::AR>(m_i[0], acc_s_ub[0], tmp_ub[0]);
+      tl::ascend::reduce_max<float, 32, 64, -1>(m_i[0], acc_s_ub[0], tmp_ub[0]);
       AscendC::PipeBarrier<PIPE_ALL>();
       AscendC::Max(m_i[0], m_i[0], m_i_prev[0], 32);
       AscendC::PipeBarrier<PIPE_ALL>();
@@ -113,7 +113,7 @@ extern "C" __global__ __aicore__ void main_kernel( GM_ADDR Q_handle,  GM_ADDR K_
       }
       AscendC::Exp(acc_s_ub[0], acc_s_ub[0], 2048);
       AscendC::PipeBarrier<PIPE_ALL>();
-      tl::ascend::reduce_sum<float, 32, 64, AscendC::Pattern::Reduce::AR>(sumexp_i_ub[0], acc_s_ub[0], tmp_ub[0]);
+      tl::ascend::reduce_sum<float, 32, 64, -1>(sumexp_i_ub[0], acc_s_ub[0], tmp_ub[0]);
       AscendC::PipeBarrier<PIPE_ALL>();
       AscendC::Mul(sumexp[0], sumexp[0], m_i_prev[0], 32);
       AscendC::PipeBarrier<PIPE_ALL>();
