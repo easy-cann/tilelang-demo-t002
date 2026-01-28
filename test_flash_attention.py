@@ -16,7 +16,7 @@ w2 = torch.randn((2, 64, 64), dtype=torch.float16)
 w3 = torch.randn((2, 64, 512), dtype=torch.float)
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-lib = ctypes.CDLL("./test_flash_attention.so")
+lib = ctypes.CDLL(f"{SCRIPT_DIR}/test_flash_attention.so")
 result = lib.call(
     ctypes.c_void_p(q.data_ptr()),
     ctypes.c_void_p(k.data_ptr()),
